@@ -15,7 +15,8 @@
     "full_supplementary_optimization_repeated": false,
     "verification_location_note": "Full verifier used a byte-identical short-path Windows copy to avoid a path-length limit."
   },
-  "inventory_note": "SHA-256 of snapshot files; this manifest excludes itself. Subsequent edits require a new inventory.",
+  "inventory_note": "SHA-256 of distributed files; this manifest excludes itself. Inventory refreshed on 2026-10-24 for the publication-workflow documentation note; original verification records retain their dates.",
+  "documentation_update": {"date": "2026-10-24", "scope": "PUBLICATION.md now explicitly describes local preparation before GitHub upload. No source code, tests, reports, reference results or source disclosures changed."},
   "files": {
     ".gitattributes": "828c3d5708971d152760eb729d196394720e0a60afe60da63bf964c359576098",
     ".github/workflows/reproducibility.yml": "758669f2bc6a0390df127eac492368faecc25544ed80263d4e8fb9241a9ca1fc",
@@ -186,7 +187,7 @@
     "data/p1_forecasts.csv": "6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b",
     "data/README.md": "5c6a793a3d334a4de6510bf9340a7337eed1c3e1d1241d237a116989f09b4995",
     "PROJECT_HISTORY.md": "d92245e1b9357e0ec903d93ff3a4593e3f670d462adf4efd0a2288530ede3cf4",
-    "PUBLICATION.md": "12210b33534834a63b285d80b65035afb272a556ce02ef9011894e340f304956",
+    "PUBLICATION.md": "59bb5ef9cf7fa57a58c16dc53c1045f29ab277b87f7e06d5c548c2edba277ad7",
     "pyproject.toml": "3023d8b1ea6846eee373c41cdab45a79146998997744947b92d812795472b394",
     "README.md": "84e77a61dbba33176a1270b4063ce2434bad4eb024631933ddc0506a26f5e243",
     "RELATED_WORK.md": "3cd9b7b4199644a40bf92594e8d152280bee80f50a3a1e353d375067c90e6d3c",
