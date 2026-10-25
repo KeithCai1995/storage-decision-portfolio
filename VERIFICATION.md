@@ -1,6 +1,6 @@
 # Checks and reproducibility
 
-The suite has 35 tests covering battery constraints, empirical CVaR, configured risk levels, shared scenario ranks, input validation, output paths and fresh versus reused study results.
+The suite has 40 tests covering battery constraints, empirical CVaR, configured risk levels, shared scenario ranks, input validation, output paths, required CLI arguments, PDF link targets and fresh versus reused study results.
 
 Local check status, environment and scope are recorded in
 [`verification/current_checks.json`](verification/current_checks.json), with the

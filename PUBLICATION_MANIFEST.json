@@ -6,7 +6,7 @@
   "local_verification": {
     "record": "verification/current_checks.json",
     "status": "passed",
-    "completed_utc": "2026-10-24T22:01:02.943815+01:00",
+    "completed_utc": "2026-10-25T06:47:13.734325+00:00",
     "checks": [
       {
         "name": "unit_tests",
@@ -20,12 +20,12 @@
           "tests",
           "-v"
         ],
-        "started_utc": "2026-10-24T22:00:23.357721+01:00",
-        "finished_utc": "2026-10-24T22:00:30.137319+01:00",
+        "started_utc": "2026-10-25T06:46:36.919613+00:00",
+        "finished_utc": "2026-10-25T06:46:40.307889+00:00",
         "exit_code": 0,
         "log": "unit_tests.txt",
-        "log_sha256": "0872d3aca71e656a0e9d66018e3321113437e2d49ac995e2b675a07241a8ae90",
-        "tests_passed": 35
+        "log_sha256": "63b4e3c9c6881160e04927da7d599245979cf697eca8c90b02ecd466cb57d180",
+        "tests_passed": 40
       },
       {
         "name": "release_verification",
@@ -34,28 +34,29 @@
           "-B",
           "scripts/verify_release.py"
         ],
-        "started_utc": "2026-10-24T22:00:30.137319+01:00",
-        "finished_utc": "2026-10-24T22:01:02.868826+01:00",
+        "started_utc": "2026-10-25T06:46:40.307889+00:00",
+        "finished_utc": "2026-10-25T06:47:13.652719+00:00",
         "exit_code": 0,
         "log": "release_verification.txt",
         "log_sha256": "9b67f5ec81ebc638a27bc18325a37cb5900694a96390a2ae5d71e2a1f21323c7",
         "table_comparisons_passed": 18,
         "schedules_checked": 3486,
         "maximum_absolute_difference": 0.0,
-        "atol": 1E-08,
+        "atol": 1e-08,
         "rtol": 0
       }
     ]
   },
   "inventory_note": "SHA-256 of distributed files; this manifest excludes itself. Experiment run manifests retain their actual dates and execution snapshots.",
-  "documentation_update": {
-    "date": "2026-10-24",
-    "scope": "Current-study documents and PDF synchronized; local check evidence included. Core source, tests, configurations and retained numerical reference results are unchanged."
-  },
   "files": {
     ".gitattributes": "828c3d5708971d152760eb729d196394720e0a60afe60da63bf964c359576098",
     ".github/workflows/reproducibility.yml": "758669f2bc6a0390df127eac492368faecc25544ed80263d4e8fb9241a9ca1fc",
     ".gitignore": "40d7b189534da72f39d8ad85d3b4a6e6d6be53596cbb325d8decf9a76e14100a",
+    "PUBLICATION.md": "239ae0147e09e1a912d6d9c7b2e3ddf22fc2ec2c9ce7e46374ce035406b2ad05",
+    "README.md": "8602c70d60ead94b4664853a81466ce0e22d0dcdf645bb579fdf3cd46c5f82c7",
+    "RELATED_WORK.md": "ba9a934bbfcf1c7ce067395af6978a22f6d3fdd8d6ddb45ddb458a419b0eb42e",
+    "RESPONSIBLE_USE.md": "6cfa8ef3f954770ab4d7882e9744580397a4446b43cdc86ac867b08167c6fd18",
+    "VERIFICATION.md": "69dc82bda9fa4687c3ad64ea322492b9475ae4f31277c2bb606bfd6ce08abd51",
     "configs/base.yaml": "7280a33bcfa1f257447f8bb03024e61ac98cda53f5e452ff5965c6f9d0a1f998",
     "configs/cvar_weight_070.yaml": "0a878cc0e93c990dd05aa798dece3e1ee2052854c9c48432f5b0dbf8858b0a96",
     "configs/high_risk_aversion.yaml": "bcb98a8cb47667363dc0aa2d3628092660a82fb64b00f78d90b28816449b6cd4",
@@ -206,35 +207,31 @@
     "corrected_v110/multiseed/strategy_metrics_by_seed.csv": "2bcc4ca72b701b49a1f4c608364b7eddd8e6c4c43aba33f69b57e1811d6a6514",
     "corrected_v110/multiseed/strategy_metrics_seed_summary.csv": "ddf640d54c476bb163955e6df0af6478fc10d49e455f62bf3d6be6cced046777",
     "corrected_v110/supplementary_20261021/.p2_output.json": "6e39e66a1a2449844ccd0bddb65a97bd3baf62929c09ad2cf337f3f4cbcd47df",
+    "corrected_v110/supplementary_20261021/README.md": "6de9b46aa498b37a7786fce445c12032b5373e236ccda99d120c56841a830a42",
     "corrected_v110/supplementary_20261021/all_schedules.csv": "b1f26ea07c8b333d312a132504f65dd6e0586c277b98d41155d0deca9bdefc38",
     "corrected_v110/supplementary_20261021/daily_results.csv": "a73dffd71bd9d3887a15ceca299922395a31f1a40209c234f33d7b345b416136",
     "corrected_v110/supplementary_20261021/idle_comparison.csv": "60711ed6b5d80bbe99fd7dc71905a61af83484ac6c09394be3b787259b8b144c",
     "corrected_v110/supplementary_20261021/idle_daily.csv": "78c2da17dc1daf48ee533a595210dc722f2dc536722d969f58f58b5773363719",
     "corrected_v110/supplementary_20261021/idle_schedule.csv": "2b965724680709aa8d7c555681d5e4d8eabb4559f2d6e6ed3872cdb1a2bd37f3",
     "corrected_v110/supplementary_20261021/paired_differences.csv": "4f2c043e61120a534a2fcca156e2314745124ff5850c426604228e7d7c4c4640",
-    "corrected_v110/supplementary_20261021/README.md": "6de9b46aa498b37a7786fce445c12032b5373e236ccda99d120c56841a830a42",
     "corrected_v110/supplementary_20261021/sampling_audit.csv": "9fa67f77be76c61bd50bcd192ecef9e4d13828f5122811e046028acc2ebdd891",
     "corrected_v110/supplementary_20261021/seed_summary.csv": "9d70bf4632cade941a3e8928d3ffd6b21bc1e977591e0fca8e3fad3666deb212",
     "corrected_v110/supplementary_20261021/strategy_metrics.csv": "3873dd42663ae1d16755a04bdde48d96924ab0daed63e5175270acf809bfba5f",
     "corrected_v110/supplementary_20261021/study_manifest.json": "63326a5e0f8e7276792dc37ee1e6bb7060976ea78f0a13b3a0a44f4b7da602e6",
+    "data/README.md": "f079e0f3b4e2d225e028ca6dccc78584cd97e16e06911aad40327dd2d336ad3d",
     "data/market_seed_20260818_p1_forecasts.csv": "c8c8278d3a237f55c2169bedc3a857f0e3d07e7098b0c233da9f7e5bc3615d50",
     "data/market_seed_20260819_p1_forecasts.csv": "f2342bdf4832c3a93abbae9f7cbc7f9f8a76a2322e377ab9c984af41799e06cc",
     "data/p1_forecasts.csv": "6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b",
-    "data/README.md": "f079e0f3b4e2d225e028ca6dccc78584cd97e16e06911aad40327dd2d336ad3d",
-    "PUBLICATION.md": "239ae0147e09e1a912d6d9c7b2e3ddf22fc2ec2c9ce7e46374ce035406b2ad05",
     "pyproject.toml": "3023d8b1ea6846eee373c41cdab45a79146998997744947b92d812795472b394",
-    "README.md": "2ea8140b696dc6b627966faf8397aedefa831aeade2b7eedb9a65e533f0cbe2b",
-    "RELATED_WORK.md": "ba9a934bbfcf1c7ce067395af6978a22f6d3fdd8d6ddb45ddb458a419b0eb42e",
-    "report/Haorui_Cai_Storage_Report_v110.pdf": "b573631e8719b45a46cbdfc9c7f6c2cbafb45cf93f06d465a26ee755e13282d7",
-    "report/report_v110.md": "27c879bab4ae3930c7c427ed95fd90cc669008243d9c9bcd3d45faad72ae2cc0",
+    "report/Haorui_Cai_Storage_Report_v110.pdf": "d2159bd817893263b2f3370f20f6f39e4c89d7cb80a5faf7fe85777927169738",
+    "report/report_v110.md": "8ccccfd8346dcd41adc501b9d148e46774f2d96127b038f5d8cd3deb9e0bdd7d",
     "requirements-lock.txt": "80efa2d97bf4f91fd72e9f05aca684c50f8a2488fafdc5f59be6a02e0c6696d1",
     "requirements-optional.txt": "3054ab567b7f89690becea1d1eca29c71fd736a6157e8d10dc9470f9a0dbce44",
     "requirements-report.txt": "6bb5bf5579218a54762f2b95b9b941893d2df03cbe8497622f0fe5d4c4897efa",
     "requirements.txt": "eec370ea77c93dbcceef4bc933cfb8afe7f8c28b7a5d54b311caeba26e65933f",
-    "RESPONSIBLE_USE.md": "6cfa8ef3f954770ab4d7882e9744580397a4446b43cdc86ac867b08167c6fd18",
-    "scripts/build_report.py": "1d249d439a921974e2fbdd686cea294b23ea92bb8a5f9b1a689430aa19a97bf3",
+    "scripts/build_report.py": "37b533a97e1556cd533862e704bf57e5192ba147366ad8a19e8846a933e2aaba",
     "scripts/compare_reference_outputs.py": "e5f3fbd117056a5f16a10267d26a1da447d8e2427099e0ddbec48c3b2e32c4f0",
-    "scripts/run_experiment.py": "cea85ad99dfea346b6dda992ba56af51e30b1cc9f0d0e9f51c5c0745152611be",
+    "scripts/run_experiment.py": "a1c2c9419459dfa01c3764ac81fe4b104e91795e6a3f522f2190d1516b4b6a6a",
     "scripts/run_market_seed_study.py": "43e4f7eb8f5db31de5e0a21600c5b3f61553a8a85f69bf953b931e6a31046444",
     "scripts/run_multiseed.py": "cd5c1c822c74c2d35e60eda54018cdaf6088046eafad859d78530591f32cfd3e",
     "scripts/run_supplementary.py": "4c01f90621baaab897ed853d1609758934de47dcbd88f71ca72aabcceba3ca6c",
@@ -250,13 +247,17 @@
     "tests/test_cvar.py": "765efaa8c4396e11d0f9c84ded2ddff32144e92ae5c0261c93fd3f5ac7a80a31",
     "tests/test_experiment.py": "d6f6fc1db1011aafc92352ebec0efc7c70c98a8f434928ebd0ab2f7290e64bed",
     "tests/test_inputs.py": "a02a0d45aef17c821b334bd590e8db08c684325376d05b5fa49160dd037dfb1a",
-    "tests/test_output_safety.py": "51a9fbcec33d33825355151eaea63be610b5071c7b6e725b715f74ab8ed872ba",
+    "tests/test_output_safety.py": "653659cec380a612a8f167d08b1ea0736c6de2be8c757f03fb5d9ffb37064ec4",
+    "tests/test_report_links.py": "62f7d4e4928b61156d9828254f4d703206d57d34b8ee64d018bff10f4444d8d0",
     "tests/test_scenarios.py": "993cacf8b625a5aa6434e04efecf90fdab918dbe6db622e77a56d620cb833a07",
     "tests/test_study_io.py": "ac07ea8058a6cc92d5236335c7fbb046af8dee9c9b25304f5764cd10247ab99a",
     "tests/test_supplementary.py": "6c16c088157939a1966e4c9c92679499179d4cfe504e7f374b231677316e793d",
-    "VERIFICATION.md": "44cd9e05835c45b18612e3d762f67a7081e0b21c0ba19a716107b25398a18986",
-    "verification/current_checks.json": "8b43c73949dd56221338162413c8335b5cd5a6ff74a7d3f9dbdd4f3b743d5a1d",
+    "verification/current_checks.json": "a158fe305df801a866ecb880f74f093b399328356ba7ce19b284c8ff87427381",
     "verification/release_verification.txt": "9b67f5ec81ebc638a27bc18325a37cb5900694a96390a2ae5d71e2a1f21323c7",
-    "verification/unit_tests.txt": "0872d3aca71e656a0e9d66018e3321113437e2d49ac995e2b675a07241a8ae90"
+    "verification/unit_tests.txt": "63b4e3c9c6881160e04927da7d599245979cf697eca8c90b02ecd466cb57d180"
+  },
+  "maintenance_update": {
+    "date": "2026-10-25",
+    "scope": "Required output argument and PDF links verified; test counts and local check records synchronized. Stored experiment results and research conclusions unchanged."
   }
 }

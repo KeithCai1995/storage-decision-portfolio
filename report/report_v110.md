@@ -151,7 +151,7 @@ The zero-transaction alternative holds initial SOC and earns exactly zero profit
 
 ## Verification, boundaries and reproducibility
 
-The verification suite has 35 unit tests covering the solver, empirical CVaR, input validation, configured alpha reporting, shared sampling, output protection and supplementary study. The three-weight release verifier compares 18 tables at absolute tolerance 1e-8 and checks 3,486 saved/rerun schedules (83,664 periods). Current local check results and environment details are linked from [VERIFICATION.md](../VERIFICATION.md). Repository CI results apply to the checked commit in its Actions tab.
+The verification suite has 40 unit tests covering the solver, empirical CVaR, input validation, configured alpha reporting, shared sampling, output protection and supplementary study. The three-weight release verifier compares 18 tables at absolute tolerance 1e-8 and checks 3,486 saved/rerun schedules (83,664 periods). Current local check results and environment details are linked from [VERIFICATION.md](../VERIFICATION.md). Repository CI results apply to the checked commit in its Actions tab.
 
 The scenario-draw and market-seed results comprise 11 unique complete runs, with 6,391 daily schedules and 153,384 periods distributed under `corrected_v110/`. These files extend the scenario and simulated-market comparisons beyond the three configurations rerun by the release verifier; they are not additional reruns in the current check record.
 

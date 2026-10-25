@@ -9,7 +9,8 @@ from storage_decision.experiment import run
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the P2 storage decision experiment")
     parser.add_argument("--config", default=str(ROOT / "configs/base.yaml"))
-    parser.add_argument("--output-root", type=Path)
+    parser.add_argument("--output-root", type=Path, required=True,
+                        help="Dedicated output directory, for example local_runs/baseline")
     parser.add_argument("--seed", type=int)
     parser.add_argument("--source-forecasts", type=Path)
     parser.add_argument("--overwrite", action="store_true", help="Replace known artifacts in a non-empty output directory; never deletes files")
