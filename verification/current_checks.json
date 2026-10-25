@@ -1,6 +1,6 @@
 {
   "record_type": "current-source local automated verification",
-  "started_utc": "2026-10-24T21:00:23.357721+00:00",
+  "started_utc": "2026-10-25T06:46:36.919613+00:00",
   "version": "1.1.0",
   "environment": {
     "python": "3.13.15",
@@ -28,12 +28,12 @@
         "tests",
         "-v"
       ],
-      "started_utc": "2026-10-24T21:00:23.357721+00:00",
-      "finished_utc": "2026-10-24T21:00:30.137319+00:00",
+      "started_utc": "2026-10-25T06:46:36.919613+00:00",
+      "finished_utc": "2026-10-25T06:46:40.307889+00:00",
       "exit_code": 0,
       "log": "unit_tests.txt",
-      "log_sha256": "0872d3aca71e656a0e9d66018e3321113437e2d49ac995e2b675a07241a8ae90",
-      "tests_passed": 35
+      "log_sha256": "63b4e3c9c6881160e04927da7d599245979cf697eca8c90b02ecd466cb57d180",
+      "tests_passed": 40
     },
     {
       "name": "release_verification",
@@ -42,8 +42,8 @@
         "-B",
         "scripts/verify_release.py"
       ],
-      "started_utc": "2026-10-24T21:00:30.137319+00:00",
-      "finished_utc": "2026-10-24T21:01:02.868826+00:00",
+      "started_utc": "2026-10-25T06:46:40.307889+00:00",
+      "finished_utc": "2026-10-25T06:47:13.652719+00:00",
       "exit_code": 0,
       "log": "release_verification.txt",
       "log_sha256": "9b67f5ec81ebc638a27bc18325a37cb5900694a96390a2ae5d71e2a1f21323c7",
@@ -55,6 +55,13 @@
     }
   ],
   "source_sha256": {
+    "scripts/build_report.py": "37b533a97e1556cd533862e704bf57e5192ba147366ad8a19e8846a933e2aaba",
+    "scripts/compare_reference_outputs.py": "e5f3fbd117056a5f16a10267d26a1da447d8e2427099e0ddbec48c3b2e32c4f0",
+    "scripts/run_experiment.py": "a1c2c9419459dfa01c3764ac81fe4b104e91795e6a3f522f2190d1516b4b6a6a",
+    "scripts/run_market_seed_study.py": "43e4f7eb8f5db31de5e0a21600c5b3f61553a8a85f69bf953b931e6a31046444",
+    "scripts/run_multiseed.py": "cd5c1c822c74c2d35e60eda54018cdaf6088046eafad859d78530591f32cfd3e",
+    "scripts/run_supplementary.py": "4c01f90621baaab897ed853d1609758934de47dcbd88f71ca72aabcceba3ca6c",
+    "scripts/verify_release.py": "591e7effe53c8ce87f7405b39d80c45d8e504b5610bd03e6b5481d221c27ee19",
     "src/storage_decision/__init__.py": "0cc7d2d9bb9e4435c1de2df611c1c1a0eff023148bde114db25f2e6e917558df",
     "src/storage_decision/artifacts.py": "69796d59abbd2a22fdf3f8ca4b7970c513a666a36c893bb08640fc57de4d3a55",
     "src/storage_decision/battery.py": "ffa1de4c55affd52327ca1b090eab8c5786d05e598755304ea55690558bc744f",
@@ -62,27 +69,15 @@
     "src/storage_decision/scenarios.py": "202fc2c217981f1d63ed68c277a1fdbc2863aedbc3b15fa2a47d1e46be8b62a7",
     "src/storage_decision/study_io.py": "971b6a0b60d1e67f0874f1c51d5ec0f005dbfa5525811aed31da782b9f4afbcb",
     "src/storage_decision/supplementary.py": "2d1aae1d1ae6b7bd26c9d934a84d862c3fefaba5f0cb98179e6d21ed768a8258",
-    "scripts/build_report.py": "1d249d439a921974e2fbdd686cea294b23ea92bb8a5f9b1a689430aa19a97bf3",
-    "scripts/compare_reference_outputs.py": "e5f3fbd117056a5f16a10267d26a1da447d8e2427099e0ddbec48c3b2e32c4f0",
-    "scripts/run_experiment.py": "cea85ad99dfea346b6dda992ba56af51e30b1cc9f0d0e9f51c5c0745152611be",
-    "scripts/run_market_seed_study.py": "43e4f7eb8f5db31de5e0a21600c5b3f61553a8a85f69bf953b931e6a31046444",
-    "scripts/run_multiseed.py": "cd5c1c822c74c2d35e60eda54018cdaf6088046eafad859d78530591f32cfd3e",
-    "scripts/run_supplementary.py": "4c01f90621baaab897ed853d1609758934de47dcbd88f71ca72aabcceba3ca6c",
-    "scripts/verify_release.py": "591e7effe53c8ce87f7405b39d80c45d8e504b5610bd03e6b5481d221c27ee19",
     "tests/test_battery.py": "37dc39d61cdd7251236b8044f0d5add5fc893d75d8fe5b68931e09e94dcb3901",
     "tests/test_cvar.py": "765efaa8c4396e11d0f9c84ded2ddff32144e92ae5c0261c93fd3f5ac7a80a31",
     "tests/test_experiment.py": "d6f6fc1db1011aafc92352ebec0efc7c70c98a8f434928ebd0ab2f7290e64bed",
     "tests/test_inputs.py": "a02a0d45aef17c821b334bd590e8db08c684325376d05b5fa49160dd037dfb1a",
-    "tests/test_output_safety.py": "51a9fbcec33d33825355151eaea63be610b5071c7b6e725b715f74ab8ed872ba",
+    "tests/test_output_safety.py": "653659cec380a612a8f167d08b1ea0736c6de2be8c757f03fb5d9ffb37064ec4",
+    "tests/test_report_links.py": "62f7d4e4928b61156d9828254f4d703206d57d34b8ee64d018bff10f4444d8d0",
     "tests/test_scenarios.py": "993cacf8b625a5aa6434e04efecf90fdab918dbe6db622e77a56d620cb833a07",
     "tests/test_study_io.py": "ac07ea8058a6cc92d5236335c7fbb046af8dee9c9b25304f5764cd10247ab99a",
-    "tests/test_supplementary.py": "6c16c088157939a1966e4c9c92679499179d4cfe504e7f374b231677316e793d",
-    "configs/base.yaml": "7280a33bcfa1f257447f8bb03024e61ac98cda53f5e452ff5965c6f9d0a1f998",
-    "configs/cvar_weight_070.yaml": "0a878cc0e93c990dd05aa798dece3e1ee2052854c9c48432f5b0dbf8858b0a96",
-    "configs/high_risk_aversion.yaml": "bcb98a8cb47667363dc0aa2d3628092660a82fb64b00f78d90b28816449b6cd4",
-    "requirements-lock.txt": "80efa2d97bf4f91fd72e9f05aca684c50f8a2488fafdc5f59be6a02e0c6696d1",
-    "requirements.txt": "eec370ea77c93dbcceef4bc933cfb8afe7f8c28b7a5d54b311caeba26e65933f",
-    "pyproject.toml": "3023d8b1ea6846eee373c41cdab45a79146998997744947b92d812795472b394"
+    "tests/test_supplementary.py": "6c16c088157939a1966e4c9c92679499179d4cfe504e7f374b231677316e793d"
   },
   "reference_sha256": {
     "data/market_seed_20260818_p1_forecasts.csv": "c8c8278d3a237f55c2169bedc3a857f0e3d07e7098b0c233da9f7e5bc3615d50",
@@ -246,6 +241,6 @@
     "corrected_v110/supplementary_20261021/strategy_metrics.csv": "3873dd42663ae1d16755a04bdde48d96924ab0daed63e5175270acf809bfba5f",
     "corrected_v110/supplementary_20261021/study_manifest.json": "63326a5e0f8e7276792dc37ee1e6bb7060976ea78f0a13b3a0a44f4b7da602e6"
   },
-  "finished_utc": "2026-10-24T21:01:02.943815+00:00",
+  "finished_utc": "2026-10-25T06:47:13.734325+00:00",
   "status": "passed"
 }

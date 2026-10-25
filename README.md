@@ -57,7 +57,7 @@ python scripts/run_market_seed_study.py --output-root local_runs/market_seed_stu
 python scripts/run_supplementary.py --output-root local_runs/scenario_count_study
 ```
 
-Use a new `local_runs/` destination for each fresh run. Non-empty directories are rejected unless `--overwrite` is given for a recognized output directory of the same experiment type. It replaces known artifacts without deleting unrelated files; source and supplied reference paths stay protected.
+`run_experiment.py` requires `--output-root`. Use a new `local_runs/` destination for each fresh run. Non-empty directories are rejected unless `--overwrite` is given for a recognized output directory of the same experiment type. It replaces known artifacts without deleting unrelated files; source and supplied reference paths stay protected.
 
 For either seed-study script, `--reuse-reference` checks configuration and input hashes, aggregates the supplied runs, and records `reused_supplied_reference` in `study_manifest.json`. Without that flag, it runs a fresh grid. Supplied summaries are not overwritten.
 

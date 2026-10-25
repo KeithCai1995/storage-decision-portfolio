@@ -1,5 +1,6 @@
 from __future__ import annotations
 import json
+import io
 import sys
 import unittest
 from pathlib import Path
@@ -85,6 +86,18 @@ class TestOutputSafety(unittest.TestCase):
             with patch.object(sys, "argv", ["run_experiment.py", "--output-root", str(self.root / "new"), *flag]), patch.object(module, "run", return_value=result) as called, patch("builtins.print"):
                 module.main()
                 self.assertEqual(called.call_args.kwargs["overwrite"], bool(flag))
+
+    def test_cli_requires_output_directory_before_running(self):
+        spec = importlib.util.spec_from_file_location("p2_required_output_test", ROOT / "scripts/run_experiment.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with patch.object(sys, "argv", ["run_experiment.py"]), patch.object(module, "run") as called:
+            with patch("sys.stderr", new_callable=io.StringIO) as error:
+                with self.assertRaises(SystemExit) as raised:
+                    module.main()
+            self.assertEqual(raised.exception.code, 2)
+            self.assertIn("--output-root", error.getvalue())
+            called.assert_not_called()
 
 
 if __name__ == "__main__":
