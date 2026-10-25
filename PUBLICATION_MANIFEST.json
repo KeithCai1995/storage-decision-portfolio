@@ -2,21 +2,56 @@
   "publication_date": "2026-10-24",
   "repository": "https://github.com/KeithCai1995/storage-decision-portfolio.git",
   "snapshot_version": "1.1.0",
-  "development_source_commit": "1bf98ea20ee6b1fa1eba4ab8e8548894ca059d02",
-  "development_main_merge_commit": "7dee77bafc0550b2fb597c2b560b1d0bef681a31",
-  "scope": "Current release snapshot; no earlier Git history or superseded archives. Dated experiment manifests retain their original scope.",
+  "scope": "Self-contained current research benchmark: simulated inputs, source, tests, results, report and local verification records.",
   "local_verification": {
-    "date": "2026-10-24",
-    "unit_and_regression_tests": "35/35 passed",
-    "release_table_comparisons": "18/18 passed; maximum absolute difference zero",
-    "saved_and_rerun_schedules_checked": 3486,
-    "supplementary_saved_schedules_checked": 1079,
-    "nested_uniform_draws_regenerated": 249,
-    "full_supplementary_optimization_repeated": false,
-    "verification_location_note": "Full verifier used a byte-identical short-path Windows copy to avoid a path-length limit."
+    "record": "verification/current_checks.json",
+    "status": "passed",
+    "completed_utc": "2026-10-24T22:01:02.943815+01:00",
+    "checks": [
+      {
+        "name": "unit_tests",
+        "command": [
+          "python",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "started_utc": "2026-10-24T22:00:23.357721+01:00",
+        "finished_utc": "2026-10-24T22:00:30.137319+01:00",
+        "exit_code": 0,
+        "log": "unit_tests.txt",
+        "log_sha256": "0872d3aca71e656a0e9d66018e3321113437e2d49ac995e2b675a07241a8ae90",
+        "tests_passed": 35
+      },
+      {
+        "name": "release_verification",
+        "command": [
+          "python",
+          "-B",
+          "scripts/verify_release.py"
+        ],
+        "started_utc": "2026-10-24T22:00:30.137319+01:00",
+        "finished_utc": "2026-10-24T22:01:02.868826+01:00",
+        "exit_code": 0,
+        "log": "release_verification.txt",
+        "log_sha256": "9b67f5ec81ebc638a27bc18325a37cb5900694a96390a2ae5d71e2a1f21323c7",
+        "table_comparisons_passed": 18,
+        "schedules_checked": 3486,
+        "maximum_absolute_difference": 0.0,
+        "atol": 1E-08,
+        "rtol": 0
+      }
+    ]
   },
-  "inventory_note": "SHA-256 of distributed files; this manifest excludes itself. Inventory refreshed on 2026-10-24 for the publication-workflow documentation note; original verification records retain their dates.",
-  "documentation_update": {"date": "2026-10-24", "scope": "PUBLICATION.md now explicitly describes local preparation before GitHub upload. No source code, tests, reports, reference results or source disclosures changed."},
+  "inventory_note": "SHA-256 of distributed files; this manifest excludes itself. Experiment run manifests retain their actual dates and execution snapshots.",
+  "documentation_update": {
+    "date": "2026-10-24",
+    "scope": "Current-study documents and PDF synchronized; local check evidence included. Core source, tests, configurations and retained numerical reference results are unchanged."
+  },
   "files": {
     ".gitattributes": "828c3d5708971d152760eb729d196394720e0a60afe60da63bf964c359576098",
     ".github/workflows/reproducibility.yml": "758669f2bc6a0390df127eac492368faecc25544ed80263d4e8fb9241a9ca1fc",
@@ -177,7 +212,7 @@
     "corrected_v110/supplementary_20261021/idle_daily.csv": "78c2da17dc1daf48ee533a595210dc722f2dc536722d969f58f58b5773363719",
     "corrected_v110/supplementary_20261021/idle_schedule.csv": "2b965724680709aa8d7c555681d5e4d8eabb4559f2d6e6ed3872cdb1a2bd37f3",
     "corrected_v110/supplementary_20261021/paired_differences.csv": "4f2c043e61120a534a2fcca156e2314745124ff5850c426604228e7d7c4c4640",
-    "corrected_v110/supplementary_20261021/README.md": "217c80f06f7d2083d0587a7616e76f81c851b326dafd34e93d0314855a8bae1d",
+    "corrected_v110/supplementary_20261021/README.md": "6de9b46aa498b37a7786fce445c12032b5373e236ccda99d120c56841a830a42",
     "corrected_v110/supplementary_20261021/sampling_audit.csv": "9fa67f77be76c61bd50bcd192ecef9e4d13828f5122811e046028acc2ebdd891",
     "corrected_v110/supplementary_20261021/seed_summary.csv": "9d70bf4632cade941a3e8928d3ffd6b21bc1e977591e0fca8e3fad3666deb212",
     "corrected_v110/supplementary_20261021/strategy_metrics.csv": "3873dd42663ae1d16755a04bdde48d96924ab0daed63e5175270acf809bfba5f",
@@ -185,14 +220,13 @@
     "data/market_seed_20260818_p1_forecasts.csv": "c8c8278d3a237f55c2169bedc3a857f0e3d07e7098b0c233da9f7e5bc3615d50",
     "data/market_seed_20260819_p1_forecasts.csv": "f2342bdf4832c3a93abbae9f7cbc7f9f8a76a2322e377ab9c984af41799e06cc",
     "data/p1_forecasts.csv": "6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b",
-    "data/README.md": "5c6a793a3d334a4de6510bf9340a7337eed1c3e1d1241d237a116989f09b4995",
-    "PROJECT_HISTORY.md": "d92245e1b9357e0ec903d93ff3a4593e3f670d462adf4efd0a2288530ede3cf4",
-    "PUBLICATION.md": "59bb5ef9cf7fa57a58c16dc53c1045f29ab277b87f7e06d5c548c2edba277ad7",
+    "data/README.md": "f079e0f3b4e2d225e028ca6dccc78584cd97e16e06911aad40327dd2d336ad3d",
+    "PUBLICATION.md": "239ae0147e09e1a912d6d9c7b2e3ddf22fc2ec2c9ce7e46374ce035406b2ad05",
     "pyproject.toml": "3023d8b1ea6846eee373c41cdab45a79146998997744947b92d812795472b394",
-    "README.md": "84e77a61dbba33176a1270b4063ce2434bad4eb024631933ddc0506a26f5e243",
-    "RELATED_WORK.md": "3cd9b7b4199644a40bf92594e8d152280bee80f50a3a1e353d375067c90e6d3c",
-    "report/Haorui_Cai_Storage_Report_v110.pdf": "61643ecc48dc3c843704b5f656de0834b9dfee46cce119113420f726ce2c4860",
-    "report/report_v110.md": "5f61f01d914c24150bcbe304cd08fbc0b6f7abeb837977b771cd96502fa5df14",
+    "README.md": "2ea8140b696dc6b627966faf8397aedefa831aeade2b7eedb9a65e533f0cbe2b",
+    "RELATED_WORK.md": "ba9a934bbfcf1c7ce067395af6978a22f6d3fdd8d6ddb45ddb458a419b0eb42e",
+    "report/Haorui_Cai_Storage_Report_v110.pdf": "b573631e8719b45a46cbdfc9c7f6c2cbafb45cf93f06d465a26ee755e13282d7",
+    "report/report_v110.md": "27c879bab4ae3930c7c427ed95fd90cc669008243d9c9bcd3d45faad72ae2cc0",
     "requirements-lock.txt": "80efa2d97bf4f91fd72e9f05aca684c50f8a2488fafdc5f59be6a02e0c6696d1",
     "requirements-optional.txt": "3054ab567b7f89690becea1d1eca29c71fd736a6157e8d10dc9470f9a0dbce44",
     "requirements-report.txt": "6bb5bf5579218a54762f2b95b9b941893d2df03cbe8497622f0fe5d4c4897efa",
@@ -220,6 +254,9 @@
     "tests/test_scenarios.py": "993cacf8b625a5aa6434e04efecf90fdab918dbe6db622e77a56d620cb833a07",
     "tests/test_study_io.py": "ac07ea8058a6cc92d5236335c7fbb046af8dee9c9b25304f5764cd10247ab99a",
     "tests/test_supplementary.py": "6c16c088157939a1966e4c9c92679499179d4cfe504e7f374b231677316e793d",
-    "VERIFICATION.md": "aeaa02cd9a0183b45cd7a5c41ee9117899dc78d7d5172fcc343a2c55717d6ad6"
+    "VERIFICATION.md": "44cd9e05835c45b18612e3d762f67a7081e0b21c0ba19a716107b25398a18986",
+    "verification/current_checks.json": "8b43c73949dd56221338162413c8335b5cd5a6ff74a7d3f9dbdd4f3b743d5a1d",
+    "verification/release_verification.txt": "9b67f5ec81ebc638a27bc18325a37cb5900694a96390a2ae5d71e2a1f21323c7",
+    "verification/unit_tests.txt": "0872d3aca71e656a0e9d66018e3321113437e2d49ac995e2b675a07241a8ae90"
   }
 }

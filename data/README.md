@@ -3,7 +3,6 @@
 This snapshot uses the corrected P1 baseline export produced on 18 October 2026,
 also distributed in the [P1 portfolio](https://github.com/KeithCai1995/electricity-price-forecasting-portfolio).
 Its SHA256 is `6901c84f413ba1375fd8096c3c4910c2346d479a7ff18274832c2d27aba8472b`.
-The earlier input is not distributed here; it remains in the separate development archive.
 
 `p1_forecasts.csv` is a snapshot of Project 1's held-out forecast output. Each issue day
 contains 24 hourly targets and the following fields:

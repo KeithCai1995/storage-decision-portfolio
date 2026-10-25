@@ -1,6 +1,6 @@
 # Method sources and contribution boundary — v1.1.0
 
-The mean–CVaR risk representation and the MILP solver are established methods. This revision contributes a corrected, reproducible integration and a transparent empirical comparison, not a novel risk measure or a new storage optimization method.
+The mean–CVaR risk representation and the MILP solver are established methods. This benchmark integrates them in a reproducible scheduling experiment and empirical comparison; it does not introduce a new risk measure or storage optimization method.
 
 Rockafellar and Uryasev's CVaR representation supplies the auxiliary threshold/excess-loss objective. The exact empirical fixed-mass estimator is additionally verified against an independent LP in `tests/test_cvar.py`: [Optimization of Conditional Value-at-Risk (2000), author copy](https://sites.math.washington.edu/~rtr/papers/rtr179-CVaR1.pdf).
 
@@ -8,4 +8,4 @@ SciPy supplies the mixed-integer interface, including explicit integrality and b
 
 Common Gaussian factors, quantile interpolation and clipped interval-width scaling are transparent scenario heuristics. This benchmark does not prove calibrated joint paths or conformal guarantees for decisions. The oracle uses future prices. The timing record does not establish operational day-ahead forecast availability.
 
-The corrected report uses the directly relevant primary method sources above. The broader, earlier literature map remains in the separate development archive, not this publication snapshot. No first-of-its-kind claim is made.
+The report uses the directly relevant primary method sources above. No first-of-its-kind claim is made.
