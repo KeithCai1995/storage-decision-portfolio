@@ -2,7 +2,7 @@
 
 A simulated research benchmark connecting probabilistic electricity-price forecasts to 24-hour battery schedules. SciPy/HiGHS mixed-integer programming enforces exclusive charging and discharging. The experiments compare risk-neutral and CVaR policies, using shared scenario draws to examine how forecast uncertainty changes decisions.
 
-This is the 24 October 2026 publication snapshot of corrected v1.1.0. It uses forecasts from [P1: electricity-price forecasting](https://github.com/KeithCai1995/electricity-price-forecasting-portfolio). All prices and profits are simulated; no employer or trading data are used. [Project history](PROJECT_HISTORY.md) describes the development background and sources.
+Forecasts come from [P1: electricity-price forecasting](https://github.com/KeithCai1995/electricity-price-forecasting-portfolio). All prices and profits are simulated; no employer or trading data are used.
 
 ## Start here
 
@@ -11,11 +11,13 @@ This is the 24 October 2026 publication snapshot of corrected v1.1.0. It uses fo
 - `corrected_v110/multiseed/`: scenario-draw seeds on the same simulated market and forecasts.
 - `corrected_v110/market_seeds/`: three simulated P1 markets at weight .55, with a fixed scenario seed.
 - [Supplementary study](corrected_v110/supplementary_20261021/README.md): an idle baseline and paired N=60/200 static/adaptive CVaR runs, with three seeds and all 83 days.
-- [Verification](VERIFICATION.md), [input contract](data/README.md) and [publication scope](PUBLICATION.md).
+- [Verification](VERIFICATION.md) and [input contract](data/README.md).
 
 ## Main findings
 
-Risk adjustment changes both profit and downside risk; there is no consistently best policy. In the supplementary scenario-count study, N=200 improves mean profit and empirical CVaR loss in all six paired comparisons. That does not mean every risk metric improves: adaptive seed 20260817's fifth-percentile daily profit falls from -18.345239 to -20.323186 EUR. Two scenario counts and three seeds do not establish convergence.
+Risk adjustment changes both profit and downside risk; there is no consistently best policy. At CVaR weight .55 in the main-reference baseline, adaptive CVaR gives mean profit 8.34 EUR/day and empirical 90% CVaR loss 17.90 EUR, compared with raw CVaR at 9.82 and 20.67 EUR. The lower tail loss comes with lower mean profit.
+
+In the supplementary scenario-count study, N=200 improves mean profit and empirical CVaR loss in all six paired comparisons. That does not mean every risk metric improves: adaptive seed 20260817's fifth-percentile daily profit falls from -18.345239 to -20.323186 EUR. Two scenario counts and three seeds do not establish convergence.
 
 The no-transaction alternative has zero profit and zero loss. It helps distinguish risk reduction from a claim that every trading strategy beats doing nothing on every day.
 
@@ -59,7 +61,7 @@ Use a new `local_runs/` destination for each fresh run. Non-empty directories ar
 
 For either seed-study script, `--reuse-reference` checks configuration and input hashes, aggregates the supplied runs, and records `reused_supplied_reference` in `study_manifest.json`. Without that flag, it runs a fresh grid. Supplied summaries are not overwritten.
 
-The supplementary study draws 200 uniforms per day/seed and uses the first 60 for N=60, with shared ranks across both modes. This prefix differs from the earlier standalone N=60 draw. A two-day timing pilot is available with `--pilot-days 2`; it is marked incomplete.
+The supplementary study draws 200 uniforms per day/seed and uses the first 60 for N=60, with shared ranks across both modes. This prefix differs from the main-reference sampling layout, so it is a separate scenario-count comparison rather than a repetition of the main-reference baseline. A two-day timing pilot is available with `--pilot-days 2`; it is marked incomplete.
 
 To rebuild the PDF, install `requirements-report.txt`, then run `python scripts/build_report.py --output report/Haorui_Cai_Storage_Report_v110.pdf`. The source is `report/report_v110.md`; visually review the rebuilt PDF.
 
@@ -70,3 +72,7 @@ Horizon 1 has `issue_time == target_time` on all 83 days. There is no separate p
 Quantile interpolation and clipped width rescaling are scenario heuristics, not calibrated marginal or joint distributions. They need not preserve interval endpoints or conformal coverage, including when an infinite interval is capped. Three scenario seeds, three simulated markets and two scenario counts do not establish real-market robustness or future risk reduction.
 
 Battery capacity/efficiency sensitivity uses median risk-neutral scheduling on the first 28 days, not adaptive CVaR over all 83. The baseline input contains 1,992 corrected P1 forecasts; its SHA-256 and timing details are in the [input contract](data/README.md).
+
+## Methods and distribution
+
+[Related work](RELATED_WORK.md) credits method sources. [Publication scope](PUBLICATION.md) describes the files included in this repository and distinguishes the file inventory from experiment run manifests.

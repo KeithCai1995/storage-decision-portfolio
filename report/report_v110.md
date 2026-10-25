@@ -1,18 +1,16 @@
 # Forecast uncertainty and simulated storage scheduling
 
-Reference study: 18 October 2026 · Technical update: 21 October 2026 · v1.1.0
+Main reference study and supplementary scenario-count study · v1.1.0
 
-Publication snapshot: 24 October 2026; experiment results unchanged
-
-**Study scope.** Numerical references were prepared on 18 October 2026; a separate section reports the 21 October supplementary study. This publication keeps the current code, corrected results and report, without the older Git history or superseded archives. `PROJECT_HISTORY.md` distinguishes experiment dates from the publication date.
+**Study scope.** A simulated benchmark of forecast-based battery scheduling, with comparisons across risk weights, scenario draws, simulated markets and scenario counts. The main-reference baseline and the supplementary scenario-count study use different sampling layouts, as described below.
 
 ## Abstract
 
-A battery scheduling benchmark connects seven hourly forecast quantiles to risk-neutral and mean–CVaR decisions. This revision corrects an omitted physical restriction by adding binary charge/discharge modes, imports the corrected Project 1 forecasts, and uses common random numbers to compare uncertainty modes fairly. Across 83 simulated scheduling days, all saved corrected schedules satisfy full physical diagnostics at tolerance 1e-7. At CVaR weight .55, adaptive scenarios yield mean profit 8.34 EUR/day and empirical 90% CVaR loss 17.90 EUR, compared with raw scenarios at 9.82 and 20.67 EUR. Adaptive scenarios therefore sacrifice mean return for lower tail loss in this particular run; they do not dominate all alternatives. Three scenario-draw seeds and three simulated market seeds expose meaningful sensitivity.
+A battery scheduling benchmark connects seven hourly forecast quantiles to risk-neutral and mean–CVaR decisions. Binary charge/discharge modes enforce exclusive battery operation, while common random numbers compare uncertainty modes using the same underlying draws. The forecast inputs come from Project 1. Across 83 simulated scheduling days, all saved main-reference schedules satisfy full physical diagnostics at tolerance 1e-7. At CVaR weight .55, adaptive scenarios yield mean profit 8.34 EUR/day and empirical 90% CVaR loss 17.90 EUR, compared with raw scenarios at 9.82 and 20.67 EUR. Adaptive scenarios therefore sacrifice mean return for lower tail loss in this particular run; they do not dominate all alternatives. Three scenario-draw seeds and three simulated market seeds expose meaningful sensitivity.
 
 ## Study design and information timing
 
-Each test day contains 24 scheduling periods. The baseline input has 1,992 corrected P1 rows, 83 days, seven ordered quantiles, realised simulated prices, seasonal forecasts, and static/adaptive interval endpoints. Each stochastic strategy receives 60 scenarios. The battery has 2 MWh capacity, 1 MW power, charging and discharging efficiency .94, initial/terminal SOC 1 MWh, and throughput cost 2 EUR/MWh. The CVaR confidence level is .90. Forecast fitting and calibration are documented in the corrected P1 report.
+Each test day contains 24 scheduling periods. The main-reference baseline input has 1,992 P1 rows, 83 days, seven ordered quantiles, realised simulated prices, seasonal forecasts, and static/adaptive interval endpoints. Each stochastic strategy receives 60 scenarios. The battery has 2 MWh capacity, 1 MW power, charging and discharging efficiency .94, initial/terminal SOC 1 MWh, and throughput cost 2 EUR/MWh. The CVaR confidence level is .90. Forecast fitting and calibration are documented in the P1 report.
 
 Horizon 1 has issue time equal to target time on every test day. No prior-day forecast publication or market gate-closure timestamp is supplied. The experiment is consequently a **simulated 24-hour scheduling benchmark**; it does not establish operational day-ahead availability, implement bid curves or measure realised market revenue.
 
@@ -30,7 +28,7 @@ All amounts are simulated EUR/day except the percentile and CVaR, which are EUR 
 
 <!-- PAGE -->
 
-## Physical model and the correction
+## Battery model
 
 For period t, charge c_t and discharge d_t are non-negative MW, SOC e_t is MWh, and mode z_t is binary. With one-hour periods, the model enforces:
 
@@ -48,14 +46,14 @@ At a single price of -100 EUR/MWh, a lossy simultaneous cycle can be profitable 
 
 | Formulation | Charge MW | Discharge MW | End SOC MWh | Profit EUR |
 |---|---:|---:|---:|---:|
-| Historical continuous LP | 1.0000 | .8836 | 1.0000 | 7.8728 |
-| Corrected binary MILP | .0000 | .0000 | 1.0000 | .0000 |
+| Continuous LP relaxation | 1.0000 | .8836 | 1.0000 | 7.8728 |
+| Binary MILP | .0000 | .0000 | 1.0000 | .0000 |
 
-This is a physical model defect even if a particular prior reference run happened not to show simultaneous activity. The optional `lp_relaxation` formulation exposes the historical behavior for comparison; it is not the default schedule.
+The LP relaxation permits simultaneous charging and discharging, so it cannot enforce the operating restriction assumed here. The optional `lp_relaxation` formulation provides this comparison; the default model is the binary MILP.
 
-### Fixed-probability-mass CVaR retained
+### Fixed-probability-mass CVaR
 
-Rockafellar–Uryasev CVaR minimises `zeta + mean(max(loss_s-zeta,0))/(1-alpha)` [1]. The implementation retains the verified exact empirical fixed-mass estimator. Sort losses from worst to best and average exactly `(1-alpha)*n` observations, weighting the boundary observation fractionally. Thus 60 scenario losses use six observations, while 83 evaluation-day losses use 8.3. Ties must not expand that probability mass. Independent LP comparisons, fractional-mass and near-tie tests verify the estimator.
+Rockafellar–Uryasev CVaR minimises `zeta + mean(max(loss_s-zeta,0))/(1-alpha)` [1]. The empirical estimator sorts losses from worst to best and averages exactly `(1-alpha)*n` observations, weighting the boundary observation fractionally. Thus 60 scenario losses use six observations, while 83 evaluation-day losses use 8.3. Ties must not expand that probability mass. Independent LP comparisons, fractional-mass and near-tie tests verify the estimator.
 
 Full diagnostics check finite values, non-negativity, power bounds, all SOC endpoints, every SOC transition and inter-period continuity, initial/terminal SOC and exclusive operation. Counts are reported separately and in aggregate; tolerance is 1e-7.
 
@@ -65,7 +63,7 @@ Full diagnostics check finite values, non-negativity, power bounds, all SOC endp
 
 Scenario uniforms use one shared normal factor and independent hourly factors: `latent = .65*common + sqrt(1-.65^2)*idiosyncratic`. Distinct latent hours therefore have Gaussian Pearson correlation .4225. This exchangeable dependence structure is a modeling assumption. It does not estimate hour-specific temporal dynamics.
 
-Each hour interpolates the seven forecast quantiles at the latent rank. Values beyond q05/q95 use the boundary quantiles. Static and adaptive curves rescale deviations about q50 by `clip(interval_width / max(q90-q10,1e-6), .35, 4)`. This is a width-based heuristic, not the transformation of conformal coverage into a calibrated joint price distribution. It need not reproduce asymmetric interval endpoints. In the corrected baseline, the upper cap affects one static and three adaptive rows; no source interval is infinite. Other valid P1 outputs may have infinite intervals when a finite-sample order is unavailable: P2 explicitly counts them and caps their scale at four, discarding interval equivalence.
+Each hour interpolates the seven forecast quantiles at the latent rank. Values beyond q05/q95 use the boundary quantiles. Static and adaptive curves rescale deviations about q50 by `clip(interval_width / max(q90-q10,1e-6), .35, 4)`. This is a width-based heuristic, not the transformation of conformal coverage into a calibrated joint price distribution. It need not reproduce asymmetric interval endpoints. In the main-reference baseline, the upper cap affects one static and three adaptive rows; no source interval is infinite. Other valid P1 outputs may have infinite intervals when a finite-sample order is unavailable: P2 explicitly counts them and caps their scale at four, discarding interval equivalence.
 
 For each day, the seed is `scenario_seed + 17*day_index`. Raw, static and adaptive curves use identical uniforms. All frontier weights reuse the same draws as the main adaptive strategy. Thus changing an uncertainty mode or weight does not introduce an unrelated random sample.
 
@@ -83,7 +81,7 @@ Cells contain mean daily profit / empirical CVaR loss in EUR. Observed out-of-sa
 
 ## Sensitivity to finite scenario draws
 
-Three scenario-draw seeds (20260817, 20260818, 20260819) use the same corrected baseline P1 forecasts and market outcomes. Each run uses 60 scenarios and 83 full scheduling days. These are Monte Carlo sensitivity checks, not three independent market backtests. Numbers below are averages and ranges over these three seeds; they are not confidence intervals.
+Three scenario-draw seeds (20260817, 20260818, 20260819) use the same main-reference baseline P1 forecasts and market outcomes. Each run uses 60 scenarios and 83 full scheduling days. These are Monte Carlo sensitivity checks, not three independent market backtests. Numbers below are averages and ranges over these three seeds; they are not confidence intervals.
 
 | Weight | Strategy | Profit avg (min–max) | CVaR avg (min–max) |
 |---|---|---:|---:|
@@ -101,13 +99,13 @@ The adaptive strategy has lower average tail loss than raw across these seeds, b
 
 ![Adaptive risk frontier on the common baseline scenario draws.](../corrected_v110/baseline/figures/figure_5_risk_frontier.png)
 
-The plotted points describe a discrete empirical evaluation curve, not a certified efficient frontier. Mean profit rises and falls because realized benchmark outcomes differ from the scenario objective. Right-edge labels are placed inward so the colorbar cannot obscure them.
+The plotted points describe a discrete empirical evaluation curve, not a certified efficient frontier. Mean profit rises and falls because realized benchmark outcomes differ from the scenario objective.
 
 <!-- PAGE -->
 
 ## Sensitivity across three simulated market seeds
 
-Two additional corrected P1 exports regenerate the simulated market and refit the forecast/calibration pipeline with seeds 20260818 and 20260819. They each provide 1,992 rows for the same 83 test-day positions. P2 keeps scenario seed 20260817, CVaR weight .55, 60 scenarios and identical battery settings. These checks vary the simulated data realization; they do not substitute for independent real-market validation.
+Two additional P1 exports regenerate the simulated market and refit the forecast/calibration pipeline with seeds 20260818 and 20260819. They each provide 1,992 rows for the same 83 test-day positions. P2 keeps scenario seed 20260817, CVaR weight .55, 60 scenarios and identical battery settings. These checks vary the simulated data realization; they do not substitute for independent real-market validation.
 
 | Market seed | Raw mean / tail | Static mean / tail | Adaptive mean / tail |
 |---|---:|---:|---:|
@@ -119,19 +117,13 @@ Cells contain mean daily profit / CVaR loss in EUR. Adaptive has lower observed 
 
 ![Representative exclusive adaptive CVaR schedule in the baseline simulated market.](../corrected_v110/baseline/figures/figure_1_representative_schedule.png)
 
-### Historical comparisons require care
-
-The old v1.0.2 baseline reported adaptive mean profit 9.8587 EUR/day and CVaR loss 16.2264 EUR. These are historical results, not current values. The corrected baseline is 8.3429 and 17.9035 EUR. The input P1 CQR correction, common random numbers and MILP formulation changed together, so their difference is not an estimate of the isolated effect of exclusivity. Prior personal checks reproduced the old software and do not validate the corrected edition.
-
-The earlier input, numerical outputs, report and development records remain in the development repository, outside this snapshot. They have not been relabelled as new verification.
-
 <!-- PAGE -->
 
-## Supplementary idle and scenario-count evidence — 21 October
+## Supplementary idle and scenario-count study
 
-This fresh study fixes the corrected baseline simulated market, battery, alpha .90 and weight .55. Only static/adaptive CVaR are compared, for N=60/200, three paired scenario seeds (20260817/18/19) and all 83 days. For each day/seed, one N=200 uniform array is drawn; N=60 takes its exact prefix, and both modes share the same ranks. All 249 prefixes and their hashes are recorded.
+This study fixes the main-reference baseline simulated market, battery, alpha .90 and weight .55. Only static/adaptive CVaR are compared, for N=60/200, three paired scenario seeds (20260817/18/19) and all 83 days. For each day/seed, one N=200 uniform array is drawn; N=60 takes its exact prefix, and both modes share the same ranks. All 249 prefixes and their hashes are recorded.
 
-The N=60 prefix differs from the historical standalone N=60 RNG layout. These results are therefore a separate scenario-count study, not a claimed repetition or replacement of the old baseline. All 12 individual results and ranges are retained under `corrected_v110/supplementary_20261021/`.
+The N=60 prefix differs from the main-reference sampling layout. These results are therefore a separate scenario-count study, not a repetition or replacement of the main-reference baseline. All 12 individual results and ranges are retained under `corrected_v110/supplementary_20261021/`.
 
 | N | Strategy | Mean profit avg | CVaR loss avg | Solve seconds |
 |---|---|---:|---:|---:|
@@ -153,21 +145,17 @@ Profit is simulated EUR/day; CVaR is EUR over daily outcomes. Averages are over 
 
 Changes are N=200 minus N=60. Action change is mean daily L1 charge-plus-discharge change in MWh; 6.361–7.446 hours/day change above 1e-7 MW. All six pairs improve mean profit and CVaR here, but adaptive seed 20260817's fifth-percentile profit worsens from -18.345239 to -20.323186 EUR. Two counts and three seeds do not prove convergence or general superiority.
 
-The zero-transaction alternative holds initial SOC and earns exactly zero profit and CVaR loss on all 83 days. It clarifies that negative-profit trading can underperform feasible inaction, without changing the old seven-strategy outputs. All 996 strategy schedules and 83 idle schedules pass full diagnostics: 1,079 schedules, 25,896 periods, zero violations. This bounded synthetic check provides neither calibrated joint scenarios nor real-market validation.
+The zero-transaction alternative holds initial SOC and earns exactly zero profit and CVaR loss on all 83 days. It clarifies that negative-profit trading can underperform feasible inaction. The main-reference seven-strategy outputs are retained separately. All 996 strategy schedules and 83 idle schedules pass full diagnostics: 1,079 schedules, 25,896 periods, zero violations. This bounded synthetic check provides neither calibrated joint scenarios nor real-market validation.
 
 <!-- PAGE -->
 
 ## Verification, boundaries and reproducibility
 
-Local Windows checks used the existing read-only Python 3.13.15 environment with NumPy 2.3.5, pandas 2.2.3 and SciPy 1.17.0. Imports came from this checkout's `src/storage_decision/`; bytecode was disabled and plotting cache redirected.
+The verification suite has 35 unit tests covering the solver, empirical CVaR, input validation, configured alpha reporting, shared sampling, output protection and supplementary study. The three-weight release verifier compares 18 tables at absolute tolerance 1e-8 and checks 3,486 saved/rerun schedules (83,664 periods). Current local check results and environment details are linked from [VERIFICATION.md](../VERIFICATION.md). Repository CI results apply to the checked commit in its Actions tab.
 
-The **18 October reference package** passed 20 tests and 18/18 release comparisons at tolerance 1e-8, with zero numeric difference and 3,486 saved/rerun schedules (83,664 periods) checked. The later alpha-reporting fix and its tests are included in the current code. Historical development checks retain their original version scope.
+The scenario-draw and market-seed results comprise 11 unique complete runs, with 6,391 daily schedules and 153,384 periods distributed under `corrected_v110/`. These files extend the scenario and simulated-market comparisons beyond the three configurations rerun by the release verifier; they are not additional reruns in the current check record.
 
-The **21 October local update** passed 35 tests, adding output protection, CLI forwarding, cache provenance, nested ranks and a fresh-study regression. Its three-weight verifier again passed 18/18 comparisons with zero difference and 3,486 checked schedules. The publication copy retains those tests and references. Current local verification is recorded in `VERIFICATION.md`; remote results belong to the checked commit in this repository's Actions tab.
-
-The earlier scenario-draw and market-seed studies contain 11 unique complete runs. Their separate saved-output audit checked 6,391 daily schedules and 153,384 periods: zero violations, maximum SOC-transition residual 5.9952e-14 MWh and zero terminal-SOC error, without postprocessing.
-
-Battery sensitivity uses only median risk-neutral scheduling on the first 28 days, not adaptive CVaR over all 83 days. New plots label this scope; archived figures and numerical references are unchanged.
+Battery sensitivity uses only median risk-neutral scheduling on the first 28 days, not adaptive CVaR over all 83 days. Its scope is separate from the full-period risk-weight and scenario studies above.
 
 ### Practical limits
 
@@ -175,7 +163,7 @@ No observed market or grid data are used. Simulated regimes, tails and dependenc
 
 ### Reproduction and evidence
 
-Follow the README for fresh `local_runs/` destinations and explicit same-type overwrite permission. Source and reference paths are protected. Study scripts default to fresh execution; `--reuse-reference` validates and labels supplied caches. The baseline input SHA256 is unchanged and recorded in `data/README.md` and run manifests. Dated manifests describe their original execution snapshots; some source entries refer to development files not distributed here. `PUBLICATION_MANIFEST.json` separately inventories this publication's files. Initial code and reference analyses were supplied; sources and subsequent work are described in `PROJECT_HISTORY.md` and `RELATED_WORK.md`.
+Follow the [README](../README.md) for fresh `local_runs/` destinations and explicit same-type overwrite permission. Source and reference paths are protected. Study scripts default to fresh execution; `--reuse-reference` validates and labels supplied caches. The baseline input SHA256 is recorded in the [input contract](../data/README.md) and run manifests. `PUBLICATION_MANIFEST.json` inventories the distributed files. Method sources are credited in [RELATED_WORK.md](../RELATED_WORK.md); [PUBLICATION.md](../PUBLICATION.md) describes the distributed files and experiment records.
 
 ### References
 
